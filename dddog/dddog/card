@@ -1,0 +1,49 @@
+流程：
+    管理者：
+        ...操作所有表的权限，进行业务分析
+    用户:注册 - 登录 - 发布需要服务 - 查询服务购买情况 - 选择服务者 - 交流 - 完成订单 - 退出
+                     购买需要服务 - 交流 - 查询购买服务响应情况 - 完成订单（结束订单） - 退出
+                     发布提供服务 - 查询服务购买情况 - 交流 - 确认订单（拒绝订单） - 完成订单 - 退出
+                     购买可提供服务 - 查询订单响应情况 - 交流 - 完成订单 - 退出
+
+
+
+功能：
+    关注
+    收藏
+    粉丝
+    导航
+    筛选
+    排序
+    充值
+    支付
+    合法
+    搜索
+    推荐
+    聊天交流
+
+
+数据库：
+
+    权限表:id 权限标识(limit) 权限描述(limit_description)
+    用户表：id 用户名(uname) 密码(password) 是否启用(is_active) 注册时间(ctime) 身份证号码(id_card) 姓名(name)
+           图片(picture) 地址(address) 手机号码(phone) 组(ugroups) 权限(ulimits)
+    组表：id 组名(gname) 组标识(gmark) 用户(gusers) 权限(glimits) 是否启用(is_active) 创建时间(ctime)
+    服务类别表: id 类别标识(sort) 类别描述(sort_description)
+    提供服务订单壮态表：id 壮态标识(state) 壮态描述(state_description)
+
+    服务需求表：id 用户(buser) 类别(sort) 标题(title) 需求介绍(details) 预约时间(appoint_time)
+           备注(remark) 服务方式(method) 服务地点(location) 价格(price) 是否发布(is_release) 创建时间(ctime)
+    服务需求提供表：id 需求订单(demand_number) 用户(buser) 类别(sort) 标题(title) 需求介绍(details)
+           预约时间(appoint_time) 备注(remark) 服务方式(method) 服务地点(location) 价格(price) 创建时间(ctime)
+           壮态(dstate)
+
+    服务提供表：用户(buser) 类别(sort) 标题(title) 服务介绍(details) 预约时间(appoint_time)
+           备注(remark) 服务方式(method) 服务区域(area) 价格(price) 是否发布(is_release) 创建时间(ctime)
+    提供服务购买表：id 服务订单(demand_number) 用户(buser) 类别(sort) 标题(title) 服务介绍(details)
+           预约时间(appoint_time) 备注(remark) 服务方式(method) 服务区域(area) 价格(price)
+           是否发布(is_release) 创建时间(ctime) 壮态(state)
+    关注:id 用户(user) 关注人(attention) 是否取消(is_cancel)
+    收藏:id 用户(user) 收藏(collect) 是否取消(is_cancel)
+    流水表:
+    申诉表:
