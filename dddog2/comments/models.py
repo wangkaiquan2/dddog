@@ -1,6 +1,6 @@
 from django.db import models
-from user.models import Users
-from release.models import ServiceOrders
+from users.models import Users
+from releases.models import ServiceOrders
 
 
 class Comments(models.Model):

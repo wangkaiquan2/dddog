@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import Users
+from users.models import Users
 
 
 class States(models.Model):
