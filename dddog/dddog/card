@@ -11,6 +11,7 @@
 功能：
     关注
     收藏
+    评论
     粉丝
     导航
     筛选
@@ -27,13 +28,15 @@
 
     权限表:id 权限标识(limit) 权限描述(limit_description)
     用户表：id 用户名(uname) 密码(password) 是否启用(is_active) 注册时间(ctime) 身份证号码(id_card) 姓名(name)
-           图片(picture) 地址(address) 手机号码(phone) 组(ugroups) 权限(ulimits)
+           图片(picture) 地址(address) 手机号码(phone) 权限(ulimits)
     组表：id 组名(gname) 组标识(gmark) 用户(gusers) 权限(glimits) 是否启用(is_active) 创建时间(ctime)
+
     服务类别表: id 类别标识(sort) 类别描述(sort_description)
     提供服务订单壮态表：id 壮态标识(state) 壮态描述(state_description)
 
     服务需求表：id 用户(buser) 类别(sort) 标题(title) 需求介绍(details) 预约时间(appoint_time)
            备注(remark) 服务方式(method) 服务地点(location) 价格(price) 是否发布(is_release) 创建时间(ctime)
+
     服务需求提供表：id 需求订单(demand_number) 用户(buser) 类别(sort) 标题(title) 需求介绍(details)
            预约时间(appoint_time) 备注(remark) 服务方式(method) 服务地点(location) 价格(price) 创建时间(ctime)
            壮态(dstate)
