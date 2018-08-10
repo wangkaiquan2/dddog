@@ -21,5 +21,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^users/',include('users.urls'))
+    url(r'^users/',include('users.urls')),
+    url(r'^administrator/',include('administrator.urls')),
+
 ]
