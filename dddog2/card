@@ -50,3 +50,21 @@
     收藏:id 用户(user) 收藏(collect) 是否取消(is_cancel)
     流水表:
     申诉表:
+
+
+总结：
+    一张表多个字段同时关联另一张表：
+        是一种类自关联,需要设置字段参数related_name,给表名取别名以区分,才能成功创建
+
+    在修改用户信息时,查询用户需要用get方法,不能使用filter方法,不然会无法修改:
+        user = Users.objects.get(id=request.session['id'])
+            if request.POST.get('phone', ''):
+                user.phone = request.POST['phone']
+
+    django连接查询时,正向查询使用的是字段名,反向查询使用的是小写类名:
+        class Users(models.Model):
+            ulimits = models.ManyToManyField(Limits, verbose_name='用户权限')
+        class Limits(models.Model):
+            pass
+        正向：user.ulimits.all()
+        反向：limits.users.all()
