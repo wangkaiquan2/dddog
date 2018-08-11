@@ -55,8 +55,8 @@ def logins(request):
                 for user_limit in user[0].ulimits.all():
                     user_all_limits.append(user_limit.limit)
                 print(user_all_limits)
-                # 序列化用户所处所有组权限
-                for user_group in user[0].groups_set.all():
+                # 序列化用户所处所有有效组权限
+                for user_group in user[0].groups_set.filter(is_active=1):
                     for limit in user_group.glimits.all():
                         user_all_limits.append(limit.limit)
                 print(user_all_limits)
@@ -106,9 +106,12 @@ def inquire_logins(request):
 
 def inquire_user_infos(request):
     """查询用户信息"""
-    if request.session.get('id',''):
+    # 判断是否登陆
+    if request.session.get('id', ''):
+        # 获取用户对象
         user = Users.objects.filter(id=request.session['id'])
-        result = {'uname':user[0].uname,'avatar':user[0].avatar,'ctime':user[0].ctime,'phone':user[0].phone}
+        # 获取用户相关信息
+        result = {'uname': user[0].uname, 'avatar': user[0].avatar, 'ctime': user[0].ctime, 'phone': user[0].phone}
         return JsonResponse(result)
     else:
         result = {'response': '未登陆'}
@@ -117,8 +120,11 @@ def inquire_user_infos(request):
 
 def update_user_infos(request):
     """用户信息修改"""
+    # 判断是否登陆
     if request.session.get('id', ''):
+        # 获取用户对象
         user = Users.objects.get(id=request.session['id'])
+        # 判断前端传入的相关信息并修改
         if request.POST.get('phone', ''):
             user.phone = request.POST['phone']
         if request.POST.get('address', ''):
@@ -129,8 +135,7 @@ def update_user_infos(request):
             logging.warning(e)
             result = {'response': '信息更改失败'}
             return JsonResponse(result)
-
-        result = {'response': '信息更改完成','phone':user.phone,'address':user.address}
+        result = {'response': '信息更改完成', 'phone': user.phone, 'address': user.address}
         return JsonResponse(result)
     else:
         result = {'response': '未登陆'}
@@ -139,12 +144,18 @@ def update_user_infos(request):
 
 def update_passwords(request):
     """修改密码"""
+    # 判断是否登陆
     if request.session.get('id', ''):
+        # 获取用户对象
         user = Users.objects.get(id=request.session['id'])
+        # 判断相关选项是否为空
         if request.POST.get('password') and request.POST.get('password_1') and request.POST.get('password_2'):
+            # 判断两次密码是否一致
             if request.POST['password_1'] == request.POST['password_2']:
+                # 判断旧密码是否正确
                 if check_password(request.POST['password'], user.password):
                     new_password = make_password(request.POST['password_1'], None, 'pbkdf2_sha1')
+                    # 修改密码
                     user.password = new_password
                     try:
                         user.save()

@@ -68,3 +68,6 @@
             pass
         正向：user.ulimits.all()
         反向：limits.users.all()
+    django表与表多对多关系添加数据时,使用getlist取值的数据依然不能为空:
+            if request.POST.getlist('lid'):
+                group.glimits.add(*request.POST.getlist('lid'))
