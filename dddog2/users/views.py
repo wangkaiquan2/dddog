@@ -54,12 +54,10 @@ def logins(request):
                 # 序列化用户自身权限
                 for user_limit in user[0].ulimits.all():
                     user_all_limits.append(user_limit.limit)
-                print(user_all_limits)
                 # 序列化用户所处所有有效组权限
                 for user_group in user[0].groups_set.filter(is_active=1):
                     for limit in user_group.glimits.all():
                         user_all_limits.append(limit.limit)
-                print(user_all_limits)
                 # 将用户id,uname,limits写入session内
                 request.session['id'] = user[0].id
                 request.session['uname'] = user[0].uname

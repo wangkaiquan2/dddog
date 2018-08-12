@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^remove-user-limits', views.remove_user_limits, name='remove-user-limits'),
     url(r'^inquire-user-groups', views.inquire_user_groups, name='inquire-user-groups'),
     url(r'^inquire-user-limits', views.inquire_user_limits, name='inquire-user-limits'),
+    url(r'^inquire-users-infos', views.inquire_users_infos, name='inquire-users-infos'),
 ]

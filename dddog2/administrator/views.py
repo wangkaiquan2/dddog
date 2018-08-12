@@ -365,4 +365,30 @@ def inquire_user_limits(request):
         result = {'response': '请传入用户id'}
         return JsonResponse(result)
 
-# 管理员操作表
+
+def inquire_users_infos(request):
+    """查询用户信息"""
+    # 判断是否登陆
+    if request.GET.get('uid', ''):
+        # 获取用户对象
+        user = Users.objects.filter(id=request.GET['uid'])
+        # 获取用户相关信息
+        user_infos = {'uname': user[0].uname, 'avatar': user[0].avatar, 'ctime': user[0].ctime, 'phone': user[0].phone}
+        user_groups = []
+        user_all_limits = []
+        # 序列化用户自身权限
+        for user_limit in user[0].ulimits.all():
+            user_all_limits.append(user_limit.limit)
+        # 序列化用户所处所有有效组权限
+        for user_group in user[0].groups_set.filter(is_active=1):
+            # 将用户的所有组记录下来
+            user_groups.append([user_group.id, user_group.gname, user_group.gmark])
+            for limit in user_group.glimits.all():
+                user_all_limits.append(limit.limit)
+        result = {'user_infos': user_infos, 'user_groups': user_groups, 'user_all_limits': user_all_limits}
+        return JsonResponse(result)
+    else:
+        result = {'response': '请传入用户id'}
+        return JsonResponse(result)
+
+
