@@ -68,6 +68,13 @@
             pass
         正向：user.ulimits.all()
         反向：limits.users.all()
+
     django表与表多对多关系添加数据时,使用getlist取值的数据依然不能为空:
             if request.POST.getlist('lid'):
                 group.glimits.add(*request.POST.getlist('lid'))
+
+    django模型类表与表一对多关系,外键使用时,正向查询与创建新对象时,均需要在字段后加_id
+        user = models.ForeignKey(Users, verbose_name='关注人', related_name='user')
+        new_attention = Attentions(user_id=user_id, attentions_id=attention_id)
+        user_attentions = Attentions.objects.filter(user_id=user_id)
+
