@@ -24,4 +24,5 @@ urlpatterns += [
     url(r'^users/',include('users.urls')),
     url(r'^administrator/',include('administrator.urls')),
     url(r'^attentions/',include('attentions.urls')),
+    url(r'^releases/',include('releases.urls')),
 ]
