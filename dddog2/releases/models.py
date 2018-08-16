@@ -14,7 +14,7 @@ class States(models.Model):
 class Services(models.Model):
     """服务表"""
     METHODS = (
-        (0, '到店服务'),
+        (6, '到店服务'),
         (1, '上门服务'),
         (2, '场所约见'),
         (3, '电话服务'),
@@ -23,7 +23,7 @@ class Services(models.Model):
     )
 
     UNITS = (
-        (0, '次'),
+        (5, '次'),
         (1, '小时'),
         (2, '天'),
         (3, '件'),
@@ -31,8 +31,8 @@ class Services(models.Model):
     )
 
     ROLES = (
-        (0, '需求方'),
-        (1, '提供方'),
+        (1, '需求方'),
+        (2, '提供方'),
     )
     users = models.ForeignKey(Users)
     service_number = models.CharField(verbose_name='服务单号', max_length=18)
