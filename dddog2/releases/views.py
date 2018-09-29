@@ -174,10 +174,10 @@ def download_files(request):
     path = 'static/upload/01_one.jpg'
 
     # 读取文件数据
-    def read_files(path):
+    def read_files(path, chunk_size=512):
         with open(path, 'rb') as f:
             while True:
-                file = f.read(512)
+                file = f.read(chunk_size)
                 if file:
                     yield file
                 else:
@@ -194,6 +194,3 @@ def download_files(request):
 def upload_excel(request):
     """上传excel文件"""
     pass
-
-
-
